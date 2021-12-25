@@ -61,6 +61,12 @@ public class Test {
         }
         while (System.out.append("hello hello").equals(" ")){
 
+            short a = 25;
+            int as = a;
+
+            double cd = 25;
+            int r = (int) cd;
+
         }
     }
 }
