@@ -35,45 +35,46 @@ public class Driver {
 //           if we do not pass the driver from terminal then use the one properties file
             String browser = System.getProperty("browser") != null ? browser = System.getProperty("browser") : ConfigurationReader.getProperty("browser");
 
-            switch (browser) {
-                case "chrome":
-                    synchronized (Driver.class){
+            synchronized (Driver.class){
+                switch (browser) {
+                    case "chrome":
+
                         WebDriverManager.chromedriver().setup();
                         driverPool.set(new ChromeDriver());
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
-                    }
 
-                case "chrome-headless":
-                    synchronized (Driver.class){
+
+                    case "chrome-headless":
+
                         WebDriverManager.chromedriver().setup();
                         driverPool.set(new ChromeDriver(new ChromeOptions().setHeadless(true)));
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
-                    }
 
-                case "firefox":
-                    synchronized (Driver.class){
+
+                    case "firefox":
+
                         WebDriverManager.firefoxdriver().setup();
                         driverPool.set(new FirefoxDriver());
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
-                    }
 
-                case "firefox-headless":
-                    synchronized (Driver.class){
+
+                    case "firefox-headless":
+
                         WebDriverManager.firefoxdriver().setup();
                         driverPool.set(new FirefoxDriver(new FirefoxOptions().setHeadless(true)));
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
-                    }
 
-                case "ie":
-                    synchronized (Driver.class){
+
+                    case "ie":
+
                         if (!System.getProperty("os.name").toLowerCase().contains("windows"))
                             throw new WebDriverException("Your OS doesn't support Internet Explorer");
                         WebDriverManager.iedriver().setup();
@@ -81,11 +82,11 @@ public class Driver {
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
-                    }
 
 
-                case "edge":
-                    synchronized (Driver.class){
+
+                    case "edge":
+
                         if (!System.getProperty("os.name").toLowerCase().contains("windows"))
                             throw new WebDriverException("Your OS doesn't support Edge");
                         WebDriverManager.edgedriver().setup();
@@ -93,11 +94,11 @@ public class Driver {
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
-                    }
 
 
-                case "safari":
-                    synchronized (Driver.class){
+
+                    case "safari":
+
                         if (!System.getProperty("os.name").toLowerCase().contains("mac"))
                             throw new WebDriverException("Your OS doesn't support Safari");
                         WebDriverManager.getInstance(SafariDriver.class).setup();
@@ -105,9 +106,12 @@ public class Driver {
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
-                    }
+
+
+                }
 
             }
+
         }
         return driverPool.get();
     }
